@@ -16,9 +16,8 @@ export default function Achievements() {
   return (
     <section className="page">
       <div className="page-heading">
-        <span className="eyebrow">Your progress</span>
         <h1>Achievements</h1>
-        <p>Level {info.level} · {info.into}/{info.needed} XP to the next level · {gs.totalScore().toLocaleString("en-US")} points in total.</p>
+        <p>You are level {info.level}, with {info.into} of {info.needed} XP towards the next one and {gs.totalScore().toLocaleString("en-US")} points in total.</p>
       </div>
 
       <Progress current={overall.solved} total={overall.total} label="Challenges solved across all games" />

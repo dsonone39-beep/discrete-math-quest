@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import gs from "../services/gameSystem.js";
 import useGameState from "../hooks/useGameState.js";
 import Progress from "../components/Progress.jsx";
+import GameGlyph from "../components/GameGlyph.jsx";
 
 export default function Home() {
   useGameState();
@@ -12,12 +13,12 @@ export default function Home() {
 
   return (
     <section className="hero">
-      <div className="hero-card">
-        <span className="eyebrow">Gamified Discrete Mathematics</span>
+      <div className="hero-copy">
         <h1>Discrete Math Quest</h1>
-        <p>
-          Learn and practice discrete mathematics through interactive challenges: logic, graphs, Hasse diagrams and
-          combinatorics, with score, XP, lives, levels and achievements.
+        <p className="hero-sub">∀ learners ∃ challenge</p>
+        <p className="hero-text">
+          Practice logic, graphs, Hasse diagrams and counting through timed challenges. You get three lives per run,
+          earn XP for every solve, and unlock harder levels as you go.
         </p>
         <div className="button-row">
           <Link className="primary-btn" to="/games">{started ? "Continue playing" : "Start game"}</Link>
@@ -26,19 +27,19 @@ export default function Home() {
         {started && (
           <div className="home-stats">
             <div className="stat-pill">Level {info.level}</div>
-            <div className="stat-pill">⭐ {gs.totalScore().toLocaleString("en-US")}</div>
-            <div className="stat-pill">{overall.solved}/{overall.total} solved</div>
+            <div className="stat-pill score">⭐ {gs.totalScore().toLocaleString("en-US")}</div>
+            <div className="stat-pill">{overall.solved} of {overall.total} solved</div>
           </div>
         )}
       </div>
 
       {started && <Progress current={overall.solved} total={overall.total} label="Overall progress" />}
 
-      <div className="feature-grid">
+      <div className="tile-grid">
         {gs.GAMES.map((g) => (
-          <Link className="feature-card" key={g.id} to={`/games/${g.id}`}>
-            <span>{g.icon}</span>
-            <h3>{g.shortTitle}</h3>
+          <Link className="tile" key={g.id} to={`/games/${g.id}`} style={{ "--game": g.color, "--tint": g.tint }}>
+            <GameGlyph id={g.id} size={64} />
+            <h3>{g.title}</h3>
             <p>{g.description}</p>
           </Link>
         ))}

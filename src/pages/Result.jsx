@@ -13,12 +13,15 @@ export default function Result() {
   const canAdvance = nextDifficulty && gs.questionsFor(r.gameId, nextDifficulty).length > 0 && gs.isUnlocked(r.gameId, nextDifficulty);
 
   return (
-    <section className="page narrow">
+    <section className="page narrow" style={{ "--game": game.color, "--tint": game.tint }}>
       <div className="result-card">
-        <span className="eyebrow">{r.over ? "Out of lives" : "Run complete"} · {game.title} · {DIFFICULTY[r.difficulty].label}</span>
-        <h1>{r.over ? "💔 Try again" : r.flawless ? "🏆 Flawless run!" : "🏆 Your result"}</h1>
+        <div className="tag-row">
+          <span className="tag">{game.title}</span>
+          <span className="tag">{DIFFICULTY[r.difficulty].label}</span>
+        </div>
+        <h1>{r.over ? "Out of lives. Try again!" : r.flawless ? "Flawless run!" : "Run complete"}</h1>
         <div className="result-number">{r.score.toLocaleString("en-US")}</div>
-        <p>points · +{r.xp} XP</p>
+        <p>points, and {r.xp} XP earned</p>
 
         <div className="result-grid">
           <div><strong>{r.solved}/{r.total}</strong><span>Solved</span></div>

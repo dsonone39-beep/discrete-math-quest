@@ -5,6 +5,7 @@ import Score from "./Score.jsx";
 import Lives from "./Lives.jsx";
 import Progress from "./Progress.jsx";
 import Toast from "./Toast.jsx";
+import GameGlyph from "./GameGlyph.jsx";
 import QuestionVisual from "./QuestionVisual.jsx";
 import ChoiceAnswer from "./answers/ChoiceAnswer.jsx";
 import NumberAnswer from "./answers/NumberAnswer.jsx";
@@ -120,11 +121,14 @@ export default function QuizRunner({ game, difficulty, onFinish }) {
   const secondsLeft = Math.ceil(countdown.left);
 
   return (
-    <section className="page game-page">
+    <section className="page game-page" style={{ "--game": game.color, "--tint": game.tint }}>
       <div className="game-top">
-        <div>
-          <span className="eyebrow">{game.title}</span>
-          <h1>{DIFFICULTY[difficulty].label} run</h1>
+        <div className="game-id">
+          <GameGlyph id={game.id} size={48} />
+          <div>
+            <h1>{game.title}</h1>
+            <p className="muted">{DIFFICULTY[difficulty].label} run</p>
+          </div>
         </div>
         <div className="button-row tight">
           <button className="quit-btn" disabled={locked} onClick={() => (countdown.paused ? countdown.resume() : countdown.pause())}>
@@ -154,8 +158,10 @@ export default function QuizRunner({ game, difficulty, onFinish }) {
         </div>
       ) : (
         <div className="question-card">
-          <div className="topic-badge">{q.topic}</div>
-          <p className="question-count">Question {index + 1} of {queue.length}</p>
+          <div className="q-head">
+            <span className="topic-badge">{q.topic}</span>
+            <span className="question-count">Question {index + 1} of {queue.length}</span>
+          </div>
           <h2>{q.text}</h2>
           <QuestionVisual question={q} />
           <Suspense fallback={<p className="meta-line">Loading diagram editor…</p>}>

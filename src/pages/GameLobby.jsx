@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import gs from "../services/gameSystem.js";
 import useGameState from "../hooks/useGameState.js";
 import Progress from "../components/Progress.jsx";
+import GameGlyph from "../components/GameGlyph.jsx";
 import { DIFFICULTY, DIFFICULTY_ORDER, CHOICE_TIME } from "../services/scoring.js";
 
 export default function GameLobby() {
@@ -13,11 +14,13 @@ export default function GameLobby() {
   const p = gs.progress(game.id);
 
   return (
-    <section className="page">
-      <div className="page-heading">
-        <span className="eyebrow">{game.icon} {game.shortTitle}</span>
-        <h1>{game.title}</h1>
-        <p>{game.description}</p>
+    <section className="page" style={{ "--game": game.color, "--tint": game.tint }}>
+      <div className="lobby-head">
+        <GameGlyph id={game.id} size={84} />
+        <div className="page-heading">
+          <h1>{game.title}</h1>
+          <p>{game.description}</p>
+        </div>
       </div>
       <Progress current={p.solved} total={p.total} label="Challenges solved" />
 
@@ -27,10 +30,10 @@ export default function GameLobby() {
           const count = gs.questionsFor(game.id, d).length;
           const open = count > 0 && gs.isUnlocked(game.id, d);
           return (
-            <div className="game-card diff-card" key={d}>
+            <div className={`game-card diff-card ${d}${open ? "" : " closed"}`} key={d}>
               <h2>{cfg.label}</h2>
-              <p>{count} challenges · {gs.solvedBy(game.id, d)} solved</p>
-              <p className="meta-line">Multiple choice {CHOICE_TIME}s · other questions {cfg.time}s with {cfg.attempts} attempts</p>
+              <p>{count} challenges, {gs.solvedBy(game.id, d)} solved</p>
+              <p className="meta-line">Multiple choice gets {CHOICE_TIME} seconds. Other questions get {cfg.time} seconds and {cfg.attempts} attempts.</p>
               {open
                 ? <Link className="primary-btn full" to={`/games/${game.id}/play/${d}`}>Start run</Link>
                 : <button className="disabled-btn" disabled>🔒 {count ? gs.unlockText(game.id, d) : "No challenges yet"}</button>}

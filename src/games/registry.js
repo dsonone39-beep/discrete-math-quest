@@ -21,16 +21,16 @@ const combinatorics = combinatoricsQuestions.map((q) => ({ ...q, type: "number" 
 export const GAMES = [
   { id: "logic", title: "Logic & Truth Dungeon", shortTitle: "Logic", icon: "🧠",
     description: "Propositional logic, truth tables, Modus Ponens, Modus Tollens and Resolution.",
-    owner: "Member 1", questions: logic },
+    owner: "Member 1", color: "#A68DFF", tint: "#E7E0FF", questions: logic },
   { id: "graph", title: "Graph Theory Pathfinder", shortTitle: "Graph", icon: "🔵",
     description: "Degrees, BFS, DFS, shortest paths, Eulerian and Hamiltonian paths on interactive graphs.",
-    owner: "Member 2", questions: graphQuestions },
+    owner: "Member 2", color: "#2EC4B6", tint: "#D3F5F1", questions: graphQuestions },
   { id: "hasse", title: "Hasse Diagram Builder", shortTitle: "Hasse", icon: "📊",
     description: "Partial orders, cover relations and drawing Hasse diagrams with React Flow.",
-    owner: "Member 2", questions: hasseQuestions },
+    owner: "Member 2", color: "#FF9F55", tint: "#FFE6D2", questions: hasseQuestions },
   { id: "combinatorics", title: "Combinatorics Strategy Game", shortTitle: "Combinatorics", icon: "🔢",
     description: "Counting, permutations, combinations, pigeonhole and inclusion-exclusion.",
-    owner: "Member 3", questions: combinatorics }
+    owner: "Member 3", color: "#FF7EB0", tint: "#FFDCEA", questions: combinatorics }
 ];
 
 export const getGame = (id) => GAMES.find((g) => g.id === id) ?? null;

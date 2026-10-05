@@ -40,7 +40,7 @@ export default function App() {
           </Routes>
         </ErrorBoundary>
       </main>
-      <footer className="footer">Discrete Math Quest · Logic · Graphs · Hasse diagrams · Combinatorics</footer>
+      <footer className="footer">Logic, graphs, Hasse diagrams and counting. Built by Members 1, 2 and 3.</footer>
     </div>
   );
 }

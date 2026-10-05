@@ -4,7 +4,6 @@ export default function Instructions() {
   return (
     <section className="page narrow">
       <div className="page-heading">
-        <span className="eyebrow">Instructions</span>
         <h1>How to Play</h1>
       </div>
       <div className="info-card">
